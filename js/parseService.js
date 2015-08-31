@@ -24,11 +24,11 @@ app.service('parseService', function($http){
   
   //getData method here
    this.getData = function() {
-      return function() {
+      // return function() {
         $http.get('https://api.parse.com/1/classes/chat?order=-createdAt')
           .then(function(response) {
-            return response.data;
+            return response.data.data;
           });
-      }
+      // }
    }
 });

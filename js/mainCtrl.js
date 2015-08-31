@@ -5,13 +5,15 @@ app.controller('mainCtrl', function($scope, parseService){
 
   //The getParseData function will call the getData method on the parseService object. You'll then save the result of that request to 
   //your controllers $scope as messages ($scope.messages)
-  $scope.message = '';
+  $scope.messageToPost = { text: $scope.message };
 
-  $scope.getParseData = parseService.getData();
+  $scope.getParseData = parseService.getData;
 
-  $scope.messages = $scope.getParseData();
+  $scope.messages = $scope.getParseData;
 
-  $scope.postData = parseService.postData($scope.message);
+  $scope.postData = function() {
+    parseService.postData($scope.messageToPost);
+  }
 
 
   //The postData function will take whatever the user typed in (hint: look at the html and see what ng-model correlates to on the 
@@ -25,6 +27,7 @@ app.controller('mainCtrl', function($scope, parseService){
   // This goes and gets new data every second, which mimicking a chat room experience.
   setInterval(function(){
     $scope.getParseData();
+    $scope.messages = $scope.getParseData();
     console.log($scope.messages);
   }, 1500)
 
