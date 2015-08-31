@@ -7,9 +7,12 @@ app.controller('mainCtrl', function($scope, parseService){
   //your controllers $scope as messages ($scope.messages)
   $scope.messageToPost = { text: $scope.message };
 
-  $scope.getParseData = parseService.getData.then(function(response) {
-    $scope.messages = response;
-  });
+
+  $scope.getParseData = function() {
+    parseService.getData().then(function(response) {
+      $scope.messages = response;
+    });
+  }
 
   $scope.postData = function() {
     parseService.postData($scope.messageToPost);
