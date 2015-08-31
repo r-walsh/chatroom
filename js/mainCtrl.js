@@ -7,9 +7,9 @@ app.controller('mainCtrl', function($scope, parseService){
   //your controllers $scope as messages ($scope.messages)
   $scope.messageToPost = { text: $scope.message };
 
-  $scope.getParseData = parseService.getData;
-
-  $scope.messages = $scope.getParseData;
+  $scope.getParseData = parseService.getData.then(function(response) {
+    $scope.messages = response;
+  });
 
   $scope.postData = function() {
     parseService.postData($scope.messageToPost);
@@ -27,8 +27,6 @@ app.controller('mainCtrl', function($scope, parseService){
   // This goes and gets new data every second, which mimicking a chat room experience.
   setInterval(function(){
     $scope.getParseData();
-    $scope.messages = $scope.getParseData();
-    console.log($scope.messages);
   }, 1500)
 
 
