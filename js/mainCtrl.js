@@ -3,19 +3,34 @@ var app = angular.module('chatroom');
 app.controller('mainCtrl', function($scope, parseService){
   //In your controller you'll have a getParseData function and a postData function, but should be placed on $scope.
 
-  //The getParseData function will call the getData method on the parseService object. You'll then save the result of that request to 
-  //your controllers $scope as messages ($scope.messages)
-  $scope.messageToPost = { text: $scope.message };
+  //The getParseData function will call the getData method on the parseService object. You'll then save the result of that request 
+  //to your controllers $scope as messages ($scope.messages)
+  // $scope.messageToPost = { text: $scope.message };
+
+  $scope.sortReverse = false;
+  $scope.sortUpDown = [
+    {name: "Ascending", value: false},
+    {name: "Descending", value: true}
+  ]
+
 
 
   $scope.getParseData = function() {
     parseService.getData().then(function(response) {
       $scope.messages = response;
+      console.log($scope.messages);
     });
   }
 
-  $scope.postData = function() {
-    parseService.postData($scope.messageToPost);
+    $scope.sortTypeArray = [
+    {name: "Date", value: 'createdAt'},
+    {name: "Content", value: 'text'}
+  ]
+
+  $scope.postData = function(message) {
+    if (message) {
+      parseService.postData($scope.message);
+    }
   }
 
 

@@ -32,3 +32,7 @@ p{
   margin: 3px 0;
   font-size: 17px;
 }
+#options {
+  width: 200px;
+  margin: 0 auto;
+}

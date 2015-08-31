@@ -7,13 +7,23 @@
   </head>
   <body ng-app="chatroom" ng-controller="mainCtrl">
     <div class="main-container">
+
       <h1> DevMountain Chat Room </h1>
-      <form ng-submit="postData()">
+
+      <form ng-submit="postData(message)">
         <input class="form-control text-box" type="text" ng-model="message" placeholder="Message">
       </form>
+
       <div class="messages-container">
-        <p ng-repeat="message in messages"> {{message.text}} </p>
+        <p ng-repeat="message in messages | filter:searchMessage | orderBy:sortType:sortReverse"> {{message.text}} - {{message.createdAt | date}}</p>
       </div>
+
+      <div id="options">
+        <input type="text" id="filter-messages" ng-model="searchMessage.text"placeholder="Search Messages">
+        <select ng-model="sortReverse" ng-options="option.value as option.name for option in sortUpDown" class="reverse"></select>
+        <select ng-model="sortType" ng-options="option.value as option.name for option in sortTypeArray"></select>
+      </div>
+
     </div>
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.19.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
